@@ -3,6 +3,8 @@ import entity.Email;
 import entity.MasterNumber;
 import entity.Person;
 import entity.Telephone;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -29,7 +31,33 @@ public class PersonSet {
     // TODO: group the data to Stream<Person>
     // Can use Collectors.groupingBy method
     // Can add helper method
-   return null;
+    List<Person> people = new ArrayList<>();
+    for (MasterNumber number : masterNumbers) {
+      Address address = null;
+      for (Address ad : addresses) {
+        if (ad.getMasterNumber().equals(number.getNumber())) {
+          address = ad;
+          break;
+        }
+      }
+
+      List<Telephone> tps = new ArrayList<>();
+      for (Telephone telephone : telephones) {
+        if (telephone.getMasterNumber().equals(number.getNumber())) {
+          tps.add(telephone);
+        }
+      }
+
+      List<Email> ems = new ArrayList<>();
+      for (Email email : emails) {
+        if (email.getMasterNumber().equals(number.getNumber())) {
+          ems.add(email);
+        }
+      }
+
+      people.add(new Person(number.getNumber(), tps, address, ems));
+    }
+   return people.stream();
   }
 
   public List<Address> getAddresses() {
