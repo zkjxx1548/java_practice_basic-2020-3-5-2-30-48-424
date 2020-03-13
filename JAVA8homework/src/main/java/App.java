@@ -1,20 +1,21 @@
-import entity.Address;
 import entity.MasterNumber;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class App {
 
   public static void main(String[] args) {
-    PersonService personService = new PersonService();
     //TODO: print Person data that masterNumber is 1 and 2
     // print Person data that masterNumber is 3
-    personService.getPersonByMasterNumbers(Arrays.asList(new MasterNumber("1")))
-            .forEach(person -> System.out.println(person));
-    personService.getPersonByMasterNumbers(Arrays.asList(new MasterNumber("2")))
-            .forEach(person -> System.out.println(person));
-    personService.getPersonByMasterNumbers(Arrays.asList(new MasterNumber("3")))
-            .forEach(person -> System.out.println(person));
+    printPersonByMasterNumber(Arrays.asList(new MasterNumber("1"), new MasterNumber("2"))) ;
+    printPersonByMasterNumber(Arrays.asList(new MasterNumber("3")));
+  }
+
+  public static void printPersonByMasterNumber(List<MasterNumber> masterNumbers) {
+    PersonService personService = new PersonService();
+    personService.getPersonByMasterNumbers(masterNumbers)
+            .forEach(System.out::println);
   }
 
 }

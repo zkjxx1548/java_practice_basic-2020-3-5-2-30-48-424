@@ -1,7 +1,5 @@
 package entity;
 
-import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -21,6 +19,9 @@ public class Person {
   public Person(String masterNumber, List<Telephone> telephones, Address address,
                 List<Email> emails) {
     this.masterNumber = masterNumber;
+
+
+
     this.address = address;
     this.telephones = telephones;
     this.emails = emails;
@@ -28,14 +29,8 @@ public class Person {
 
   public Optional<SimpleAddress> getSimpleAddress() {
     //TODO: return Optional<SimpleAddress>
-    try {
-      address.getStreet();
-      address.getCity();
-    } catch (Exception e) {
-      return Optional.ofNullable(null);
-    }
-    SimpleAddress simpleAddress = new SimpleAddress(address.getStreet(), address.getCity());
-    return Optional.ofNullable(simpleAddress);
+    Optional<Address> address = Optional.ofNullable(this.address);
+    return address.map(value -> new SimpleAddress(value.getStreet(), value.getCity()));
   }
 
   public Address getAddress() {
@@ -48,10 +43,6 @@ public class Person {
 
   public List<Telephone> getTelephones() {
     return telephones;
-  }
-
-  public String getMasterNumber() {
-    return masterNumber;
   }
 
   @Override
